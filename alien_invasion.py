@@ -21,13 +21,8 @@ def run_game():
     # основной цикл игры
     while True:
         gf.check_events()
+        gf.update_screen(ai_settings, screen, ship)
 
-        # при каждом проходе цикла перерисовать экран
-        screen.fill(ai_settings.bg_color)
-        ship.blitme()
-
-        # отображение оследнего прорисованного экрана
-        pygame.display.flip()
 
 run_game()
 

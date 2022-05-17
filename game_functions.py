@@ -2,11 +2,15 @@ import sys
 import pygame
 
 
-def check_events():
+def check_events(ship):
     """ обрабатывает нажатия клавишь и события мыши """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                # переместить корабль вправо
+                ship.rect.centerx += 1
 
 
 def update_screen(ai_settings, screen, ship):

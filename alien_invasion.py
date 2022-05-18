@@ -2,6 +2,7 @@
 Главный файл программы создает ряд важных объектов, используемых в ходе игры
 """
 import pygame
+from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
@@ -17,12 +18,15 @@ def run_game():
 
     # создание корабля
     ship = Ship(ai_settings, screen)
+    # создание группы для хранения пуль
+    bullets = Group()
 
     # основной цикл игры
     while True:
-        gf.check_events(ship)
+        gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        gf.update_screen(ai_settings, screen, ship)
+        bullets.update()
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
 
 run_game()

@@ -26,6 +26,7 @@ class Ship():
     def update(self):
         """ обновляет позицию корабля с учетом флагов """
         #  обновляется атрибут center, НЕ rect
+        #  если не достиг края экрана, можем двигать
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.center += self.ai_settings.ship_speed_factor
         if self.moving_left and self.rect.left > 0:

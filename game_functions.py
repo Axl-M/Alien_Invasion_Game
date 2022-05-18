@@ -1,9 +1,12 @@
+"""
+Содержит набор функций, выполняющих основную работу в игре
+"""
 import sys
 import pygame
 
 
 def check_keydown_events(event, ship):
-    """ реагирует на нажатие клавиш """
+    """ Реагирует на нажатие клавиш """
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
@@ -11,7 +14,7 @@ def check_keydown_events(event, ship):
 
 
 def check_keyup_events(event, ship):
-    """ реагирует на отпускание клавиш """
+    """ Реагирует на отпускание клавиш """
     if event.key == pygame.K_RIGHT:
         ship.moving_right = False
     if event.key == pygame.K_LEFT:
@@ -19,7 +22,7 @@ def check_keyup_events(event, ship):
 
 
 def check_events(ship):
-    """ обрабатывает нажатия клавиш и события мыши """
+    """ Обрабатывает нажатия клавиш и события мыши """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -30,10 +33,10 @@ def check_events(ship):
 
 
 def update_screen(ai_settings, screen, ship):
-    """ обновляет изображения на экране и отображает новый экран """
+    """ Обновляет изображения на экране и отображает новый экран """
     # при каждом проходе цикла перерисовать экран
     screen.fill(ai_settings.bg_color)
     ship.blitme()
 
-    # отображение оследнего прорисованного экрана
+    # отображение последнего прорисованного экрана
     pygame.display.flip()

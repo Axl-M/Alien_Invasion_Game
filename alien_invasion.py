@@ -1,7 +1,11 @@
+"""
+Главный файл программы создает ряд важных объектов, используемых в ходе игры
+"""
 import pygame
 from settings import Settings
 from ship import Ship
 import game_functions as gf
+
 
 def run_game():
     # инициализирует pygame, settings и  объект экрана
@@ -14,10 +18,6 @@ def run_game():
     # создание корабля
     ship = Ship(ai_settings, screen)
 
-    # цвет фона
-    bg_color = (230, 230, 230)
-
-
     # основной цикл игры
     while True:
         gf.check_events(ship)
@@ -26,4 +26,3 @@ def run_game():
 
 
 run_game()
-

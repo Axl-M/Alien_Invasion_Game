@@ -25,7 +25,7 @@ def run_game():
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        bullets.update()
+        bullets.update()  # вызывает bullet.update() для каждой пули, включенной в группу bullets.
         gf.update_screen(ai_settings, screen, ship, bullets)
 
 

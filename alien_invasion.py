@@ -22,12 +22,15 @@ def run_game():
     # создание группы для хранения пуль
     bullets = Group()
 
+    # создание приешльца
+    alien = Alien(ai_settings, screen)
+
     # основной цикл игры
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)  # проверяет ввод, полученный от игрока
         ship.update()                   # обновляет позицию корабля
         gf.update_bullets(bullets)      # обновляет позиции всех выпущенных пуль
-        gf.update_screen(ai_settings, screen, ship, bullets)    # вывод нового экрана
+        gf.update_screen(ai_settings, screen, ship, alien, bullets)    # вывод нового экрана
 
 
 run_game()

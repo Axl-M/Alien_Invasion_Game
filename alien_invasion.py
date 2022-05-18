@@ -23,17 +23,10 @@ def run_game():
 
     # основной цикл игры
     while True:
-        gf.check_events(ai_settings, screen, ship, bullets)
-        ship.update()
-        bullets.update()  # вызывает bullet.update() для каждой пули, включенной в группу bullets.
-
-        # удаление пуль вышедших за край экрана
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        # print(len(bullets))
-
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.check_events(ai_settings, screen, ship, bullets)  # проверяет ввод, полученный от игрока
+        ship.update()                   # обновляет позицию корабля
+        gf.update_bullets(bullets)      # обновляет позиции всех выпущенных пуль
+        gf.update_screen(ai_settings, screen, ship, bullets)    # вывод нового экрана
 
 
 run_game()

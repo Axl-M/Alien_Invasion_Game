@@ -120,8 +120,9 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets):
     # края экрана.)
 
     if len(aliens) == 0:    # группа пуста - все корабли уничтожены
-        # уничтожение существующих пуль и создание нового флота
+        # Уничтожение пуль, повышение скорости и создание нового флота.
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 

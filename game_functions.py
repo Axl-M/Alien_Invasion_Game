@@ -153,6 +153,9 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     if pygame.sprite.spritecollideany(ship, aliens):
         ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
+    # Проверка пришельцев, добравшихся до нижнего края экрана.
+    check_alliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+
 
 def check_fleet_edges(ai_settings, aliens):
     """ Реагирует на достижение пришельцем края экрана """
@@ -182,5 +185,14 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 
     # пауза
     sleep(0.5)
+
+def check_alliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    """ Проверяет, добрались ли пришельцы до нижнего края экрана. """
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            # Происходит то же, что при столкновении с кораблем.
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            break
 
 

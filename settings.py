@@ -13,7 +13,7 @@ class Settings():
         self.ship_limit = 2 # будет 3 попытки
 
         # параметры пули
-        self.bullet_width = 3
+        self.bullet_width = 300
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
         self.bulets_allowed = 3
@@ -21,7 +21,7 @@ class Settings():
         # настройки пришельцев
         self.fleet_drop_speed = 10
         # темп ускорения игры
-        self.speedup_scale = 1.1
+        self.speedup_scale = 2          # Увеличение сложности с каждым уровнем
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):

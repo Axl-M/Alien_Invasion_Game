@@ -63,7 +63,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
     pygame.display.flip()
 
 
-def update_bullets(bullets):
+def update_bullets(aliens, bullets):
     """ Обновляет позиции пуль и удаляет старые пули """
     # обновление позиций пуль
     bullets.update()  # вызывает bullet.update() для каждой пули, включенной в группу bullets.
@@ -72,6 +72,20 @@ def update_bullets(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    # Проверка попаданий в пришельцев
+    # при обнаружении попадания удалить пулю и пришельца
+    # Метод sprite.groupcollide() сравнивает прямоугольник rect каждой пули с прямоугольником rect каждого
+    # пришельца и возвращает словарь с пулями и пришельцами, между которыми обнаружены коллизии.
+    # Каждый ключ в словаре представляет пулю, а ассоциированное с ним значение — пришельца, в которого попала пуля.
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    # Сначала перебирает все пули в группе bullets, а затем перебирает всех пришельцев в группе aliens.
+    # Каждый раз, когда между прямоугольником пули и пришельца обнаруживается перекрытие, groupcollide()
+    # добавляет пару «ключ — значение» в возвращаемый словарь. Два аргумента True сообщают Pygame, нужно ли
+    # удалять столкнувшиеся объекты: пулю и пришельца. (Чтобы создать сверхмощную пулю, которая будет
+    # уничтожать всех пришельцев на своем пути, можно передать в первом аргументе False, а во втором True.
+    # Пришельцы, в которых попадает пуля, будут исчезать, но все пули будут оставаться активными до верхнего
+    # края экрана.)
 
 
 def create_fleet(ai_settings, screen, ship, aliens):
@@ -117,9 +131,10 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
 
+
 def update_aliens(ai_settings, aliens):
-    """ Проверяет достиг ли флот края экрана, после чего
-    Обновляет позиции всех пришельцев во флоте."""
+    """ Проверяет, достиг ли флот края экрана, после чего
+    обновляет позиции всех пришельцев во флоте."""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
@@ -133,7 +148,7 @@ def check_fleet_edges(ai_settings, aliens):
 
 
 def change_fleet_direction(ai_settings, aliens):
-    """ Опускает весь флот и меняет направление флота. """
+    """ Опускает весь флот и меняет направление движения флота. """
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1

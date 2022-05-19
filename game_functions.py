@@ -52,7 +52,8 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 
 def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """ Запускает новую игру при нажатии кнопки Play. """
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active: # чтобы НЕ реагировала на нажатие на невидимую кнопку PLAY
         # сброс игровой статистики
         stats.reset_stats()
         stats.game_active = True
@@ -200,7 +201,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     if stats.ships_left > 0:
         # Уменьшение ships_left.
         stats.ships_left -= 1
-        print('ships_left - ', stats.ships_left )
+        # print('ships_left - ', stats.ships_left )
     else:
         stats.game_active = False
 

@@ -10,7 +10,7 @@ class Settings():
 
         # настройки корабля
         self.ship_speed_factor = 1.5
-        self.ship_limit = 3
+        self.ship_limit = 2 # будет 3 попытки
 
         # параметры пули
         self.bullet_speed_factor = 1

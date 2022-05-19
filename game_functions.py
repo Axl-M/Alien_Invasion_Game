@@ -117,8 +117,10 @@ def check_bullet_alien_collision(ai_settings, screen, stats, sb, ship, aliens, b
     # Каждый ключ в словаре представляет пулю, а ассоциированное с ним значение — пришельца, в которого попала пуля.
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     if collisions:
-        stats.score += ai_settings.alien_points # стоимость пришельца добавляется к счету
-        sb.prep_score()                            # создает новое изображение для обновленного счета.
+        # Переберем словарь collisions и убедимся в том, что очки начисляются за каждого подбитого пришельца
+        for aliens in collisions.values():
+            stats.score += ai_settings.alien_points * len(aliens) # стоимость пришельца добавляется к счету
+            sb.prep_score()                            # создает новое изображение для обновленного счета.
     # Сначала перебирает все пули в группе bullets, а затем перебирает всех пришельцев в группе aliens.
     # Каждый раз, когда между прямоугольником пули и пришельца обнаруживается перекрытие, groupcollide()
     # добавляет пару «ключ — значение» в возвращаемый словарь. Два аргумента True сообщают Pygame, нужно ли

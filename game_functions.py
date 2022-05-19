@@ -47,7 +47,7 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
     """ Обновляет изображения на экране и отображает новый экран """
     # при каждом проходе цикла перерисовать экран
     screen.fill(ai_settings.bg_color)
@@ -59,6 +59,10 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
     # позиции, определяемой его атрибутом rect. В данном случае вызов aliens.draw(screen) рисует каждого п
     # пришельца в группе на экране.
     aliens.draw(screen)
+
+    # Кнопка Play отображается в том случае, если игра неактивна.
+    if not stats.game_active:
+        play_button.draw_button()
 
     # отображение последнего прорисованного экрана
     pygame.display.flip()
@@ -154,7 +158,7 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
         ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
     # Проверка пришельцев, добравшихся до нижнего края экрана.
-    check_alliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
 
 
 def check_fleet_edges(ai_settings, aliens):
@@ -171,6 +175,7 @@ def change_fleet_direction(ai_settings, aliens):
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
 
+
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """ Обрабатывает столкновение корабля с пришельцем. """
     if stats.ships_left > 0:
@@ -183,14 +188,15 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     aliens.empty()
     bullets.empty()
 
-    #Создание нового флота и размещение корабля в центре.
+    # Создание нового флота и размещение корабля в центре.
     create_fleet(ai_settings, screen, ship, aliens)
     ship.center_ship()
 
     # пауза
     sleep(0.5)
 
-def check_alliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
     """ Проверяет, добрались ли пришельцы до нижнего края экрана. """
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
@@ -198,5 +204,3 @@ def check_alliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
             # Происходит то же, что при столкновении с кораблем.
             ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
             break
-
-

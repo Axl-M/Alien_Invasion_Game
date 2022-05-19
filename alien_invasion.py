@@ -34,7 +34,7 @@ def run_game():
 
     # основной цикл игры
     while True:
-        gf.check_events(ai_settings, screen, ship, bullets)  # проверяет ввод, полученный от игрока
+        gf.check_events(ai_settings, screen, stats, play_button, ship, bullets)  # проверяет ввод, полученный от игрока
         if stats.game_active:
             ship.update()                           # обновляет позицию корабля
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)       # обновляет позиции всех выпущенных пуль

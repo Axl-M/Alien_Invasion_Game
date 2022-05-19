@@ -173,8 +173,12 @@ def change_fleet_direction(ai_settings, aliens):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """ Обрабатывает столкновение корабля с пришельцем. """
-    # Уменьшение ships_left.
-    stats.ships_left -= 1
+    if stats.ships_left > 0:
+        # Уменьшение ships_left.
+        stats.ships_left -= 1
+    else:
+        stats.game_active = False
+
     # Очистка списков пришельцев и пуль.
     aliens.empty()
     bullets.empty()

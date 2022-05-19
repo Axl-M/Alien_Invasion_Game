@@ -128,6 +128,7 @@ def check_bullet_alien_collision(ai_settings, screen, stats, sb, ship, aliens, b
     # уничтожать всех пришельцев на своем пути, можно передать в первом аргументе False, а во втором True.
     # Пришельцы, в которых попадает пуля, будут исчезать, но все пули будут оставаться активными до верхнего
     # края экрана.)
+        check_high_score(stats, sb)
 
     if len(aliens) == 0:    # группа пуста - все корабли уничтожены
         # Уничтожение пуль, повышение скорости и создание нового флота.
@@ -239,3 +240,9 @@ def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
             # Происходит то же, что при столкновении с кораблем.
             ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
             break
+
+def check_high_score(stats, sb):
+    """ Проверяет, появился ли новый рекорд. """
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()

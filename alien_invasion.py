@@ -4,6 +4,7 @@
 import pygame
 from pygame.sprite import Group
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 import game_functions as gf
 
@@ -15,12 +16,14 @@ def run_game():
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Alien Invasion")
+    # Создание экземпляра для хранения игровой статистики.
+    stats = GameStats(ai_settings)
 
     # создание корабля
     ship = Ship(ai_settings, screen)
     # создание группы для хранения пуль
     bullets = Group()
-    # создание приешльца
+    # создание пришельца
     aliens = Group()  # группа для хранения всех пришельцев в игре
 
     # Создание флота пришельцев.
@@ -30,8 +33,8 @@ def run_game():
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)  # проверяет ввод, полученный от игрока
         ship.update()                           # обновляет позицию корабля
-        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)      # обновляет позиции всех выпущенных пуль
-        gf.update_aliens(ai_settings, ship, aliens)   # обновление флота пришельцев
+        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)           # обновляет позиции всех выпущенных пуль
+        gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)   # обновление флота пришельцев
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)    # вывод нового экрана
 
 

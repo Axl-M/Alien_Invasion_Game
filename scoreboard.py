@@ -18,7 +18,9 @@ class Scoreboard:
 
     def prep_score(self):
         """ Преобразует текущий счет в графическое изображение. """
-        score_str = str(self.stats.score)
+        rounded_score = round(self.stats.score, -1)   # -1 округлить до десятков
+        # score_str = str(self.stats.score)
+        score_str = "{:,}".format(rounded_score)
         self.score_img = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_color)
 
         # Вывод счета в правой верхней части экрана. И расширяется влево с ростом значения и ширины числа

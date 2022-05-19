@@ -33,7 +33,7 @@ class Settings():
         self.alien_speed_factor = 1
         # fleet_direction = 1 обозначает движение вправо; а -1 - влево.
         self.fleet_direction = 1
-        self.alien_points = 1  # к-во очков за 1 уничтоженный корабль
+        self.alien_points = 100  # к-во очков за 1 уничтоженный корабль
 
     def increase_speed(self):
         """ Увеличивает настройки скорости (темп игры). """

@@ -1,4 +1,4 @@
-class GameStats():
+class GameStats:
     """ Отслеживание статистики для игры """
     def __init__(self, ai_settings):
         """ Инициализация статистики """
@@ -10,3 +10,4 @@ class GameStats():
     def reset_stats(self):
         """ Инициализирует статистику, изменяющуюся в ходе игры. """
         self.ships_left = self.ai_settings.ship_limit
+        self.score = 0  # Чтобы счет сбрасывался при запуске новой игры

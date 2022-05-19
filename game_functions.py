@@ -73,6 +73,11 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+    check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets)
+
+
+def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets):
+    """ Обработка коллизий пуль и пришельцев """
     # Проверка попаданий в пришельцев
     # при обнаружении попадания удалить пулю и пришельца
     # Метод sprite.groupcollide() сравнивает прямоугольник rect каждой пули с прямоугольником rect каждого

@@ -53,7 +53,7 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """ Запускает новую игру при нажатии кнопки Play. """
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
-    if button_clicked and not stats.game_active: # чтобы НЕ реагировала на нажатие на невидимую кнопку PLAY
+    if button_clicked and not stats.game_active:  # чтобы НЕ реагировала на нажатие на невидимую кнопку PLAY
         # скрыть указатель мыши
         pygame.mouse.set_visible(False)
         # сброс игровой статистики

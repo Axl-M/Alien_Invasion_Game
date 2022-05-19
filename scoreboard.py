@@ -1,5 +1,6 @@
 import pygame.font
 
+
 class Scoreboard:
     """ Класс для вывода игровой информации. """
     def __init__(self, ai_settings, screen, stats):
@@ -22,7 +23,8 @@ class Scoreboard:
 
         # Вывод счета в правой верхней части экрана. И расширяется влево с ростом значения и ширины числа
         self.score_rect = self.score_img.get_rect()
-        self.score_rect.right = self.screen_rect.right - 20  # смещаем его правую сторону на 20 пикселов от правого края экрана
+        # смещаем его правую сторону на 20 пикселов от правого края экрана
+        self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = 20
 
     def show_score(self):

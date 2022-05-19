@@ -95,7 +95,7 @@ def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_bu
     pygame.display.flip()
 
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """ Обновляет позиции пуль и удаляет старые пули """
     # обновление позиций пуль
     bullets.update()  # вызывает bullet.update() для каждой пули, включенной в группу bullets.
@@ -105,10 +105,10 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
-    check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collision(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
 
-def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets):
+def check_bullet_alien_collision(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """ Обработка коллизий пуль и пришельцев """
     # Проверка попаданий в пришельцев
     # при обнаружении попадания удалить пулю и пришельца
@@ -116,6 +116,9 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets):
     # пришельца и возвращает словарь с пулями и пришельцами, между которыми обнаружены коллизии.
     # Каждый ключ в словаре представляет пулю, а ассоциированное с ним значение — пришельца, в которого попала пуля.
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if collisions:
+        stats.score += ai_settings.alien_points # стоимость пришельца добавляется к счету
+        sb.prep_score()                            # создает новое изображение для обновленного счета.
     # Сначала перебирает все пули в группе bullets, а затем перебирает всех пришельцев в группе aliens.
     # Каждый раз, когда между прямоугольником пули и пришельца обнаруживается перекрытие, groupcollide()
     # добавляет пару «ключ — значение» в возвращаемый словарь. Два аргумента True сообщают Pygame, нужно ли

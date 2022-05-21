@@ -16,6 +16,7 @@ class Scoreboard:
         #   Подготовка изображений счетов.
         self.prep_score()
         self.prep_high_score()
+        self.prep_level()
 
     def prep_score(self):
         """ Преобразует текущий счет в графическое изображение. """
@@ -41,7 +42,18 @@ class Scoreboard:
         self.high_score_rect.centerx = self.screen_rect.centerx  # горизонтальное вы- равнивание прямоугольника по центру экрана
         self.high_score_rect.top = self.score_rect.top
 
+
+    def prep_level(self):
+        """ Преобразует номер уровня в графическое изображение """
+        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, self.ai_settings.bg_color)
+
+        # уровень выводится под текущим счетом
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.score_rect.right
+        self.level_rect.top = self.score_rect.bottom + 10
+
     def show_score(self):
-        """ Выводит счет на экран. """
+        """ Выводит текущий счет, рекорд и число оставшихся кораблей на экран. """
         self.screen.blit(self.score_img, self.score_rect)
         self.screen.blit(self.high_score_img, self.high_score_rect)
+        self.screen.blit(self.level_image, self.level_rect)

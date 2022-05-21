@@ -36,21 +36,21 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets):
+def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets):
     """ Обрабатывает нажатия клавиш и события мыши """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y)
+            check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets, mouse_x, mouse_y)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
 
-def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """ Запускает новую игру при нажатии кнопки Play. """
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:  # чтобы НЕ реагировала на нажатие на невидимую кнопку PLAY
@@ -61,6 +61,11 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
         # сброс игровой статистики
         stats.reset_stats()
         stats.game_active = True
+
+        # сброс изображений счетов и уровня
+        sb.prep_score()
+        sb.prep_high_score()
+        sb.prep_level()
 
         # очистка списков пришельцев и пуль
         aliens.empty()
@@ -130,10 +135,13 @@ def check_bullet_alien_collision(ai_settings, screen, stats, sb, ship, aliens, b
     # края экрана.)
         check_high_score(stats, sb)
 
-    if len(aliens) == 0:    # группа пуста - все корабли уничтожены
+    if len(aliens) == 0:    # группа пуста - все корабли уничтожены, начинается следующий уровень
         # Уничтожение пуль, повышение скорости и создание нового флота.
         bullets.empty()
         ai_settings.increase_speed()
+        # увеличение уровня
+        stats.level += 1
+        sb.prep_level()
         create_fleet(ai_settings, screen, ship, aliens)
 
 
@@ -215,7 +223,6 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     if stats.ships_left > 0:
         # Уменьшение ships_left.
         stats.ships_left -= 1
-        # print('ships_left - ', stats.ships_left )
     else:
         stats.game_active = False
         pygame.mouse.set_visible(True)

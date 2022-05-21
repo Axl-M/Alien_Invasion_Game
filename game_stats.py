@@ -7,7 +7,9 @@ class GameStats:
         # Игра Alien Invasion запускается в НЕактивном состоянии.
         self.game_active = False
         # Рекорд не должен сбрасываться.
-        self.high_score = 0
+        prev_high_score = self.load_high_score()
+        # self.high_score = 0
+        self.high_score = int(prev_high_score)
 
     def reset_stats(self):
         """ Инициализирует статистику, изменяющуюся в ходе игры. """
@@ -15,3 +17,9 @@ class GameStats:
         self.score = 0  # Чтобы счет сбрасывался при запуске новой игры
         self.level = 1
 
+    def load_high_score(self):
+        try:
+            with open('high_scores.txt', 'r') as f:
+                return f.read()
+        except:
+            print('Файл не найден')

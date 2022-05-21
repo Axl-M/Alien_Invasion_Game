@@ -23,7 +23,7 @@ class Scoreboard:
         rounded_score = round(self.stats.score, -1)   # -1 округлить до десятков
         # score_str = str(self.stats.score)
         score_str = "{:,}".format(rounded_score)      # форматировать разряды запятыми
-        self.score_img = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.score_img = self.font.render("Текущий счёт: " + score_str, True, self.text_color, self.ai_settings.bg_color)
 
         # Вывод счета в правой верхней части экрана. И расширяется влево с ростом значения и ширины числа
         self.score_rect = self.score_img.get_rect()
@@ -35,7 +35,7 @@ class Scoreboard:
         """ Преобразует рекордный счет в графическое изображение. """
         high_score = round(self.stats.high_score, -1)
         high_score_str = "{:,}".format(high_score)
-        self.high_score_img = self.font.render(high_score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.high_score_img = self.font.render("Рекорд: " + high_score_str, True, self.text_color, self.ai_settings.bg_color)
 
         # Рекорд выравнивается по центру верхней стороны.
         self.high_score_rect = self.high_score_img.get_rect()
@@ -45,7 +45,7 @@ class Scoreboard:
 
     def prep_level(self):
         """ Преобразует номер уровня в графическое изображение """
-        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, self.ai_settings.bg_color)
+        self.level_image = self.font.render("Уровень " + str(self.stats.level), True, self.text_color, self.ai_settings.bg_color)
 
         # уровень выводится под текущим счетом
         self.level_rect = self.level_image.get_rect()
